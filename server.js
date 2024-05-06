@@ -5,7 +5,7 @@ const app = express();
 
 const messange = [];
 
-app.use(express.static(path.join(__dirname, '/client')));
+app.use(express.static(path.join(__dirname, '/clients')));
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/clients/build/index.html'));
