@@ -1,0 +1,13 @@
+{
+  "name": "project-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "watch": "browser-sync start --server --files \"*.css\" \"*.html\" \"*.js\"",
+    "build": ""
+  },
+  "dependencies": {
+    "browser-sync": "^3.0.2"
+  }
+}
