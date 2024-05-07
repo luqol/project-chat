@@ -31,6 +31,7 @@ const app = {
         alert("Login is empty");
       } else {
         thisApp.setUserName();
+        thisApp.socket.emit('newUser', thisApp.getUsernName());
         thisApp.dom.loginForm.classList.remove('show');
         thisApp.dom.messangesSection.classList.add('show');
       }
@@ -68,7 +69,14 @@ const app = {
     }
 
     const contentElement = document.createElement('div');
-    contentElement.classList.add('message__content');
+    
+
+    if (author === 'Chat Bot'){
+      contentElement.classList.add('message__content', 'bot__message');
+    } else {
+      contentElement.classList.add('message__content');
+    }
+
     contentElement.innerText = content;
 
     messange.appendChild(authorElement);
@@ -93,8 +101,6 @@ const app = {
     });
 
     thisApp.socket.on('message', ({ author, content }) => thisApp.addMessage(author, content));
-
-
   },
 
   init: function() {
