@@ -42,13 +42,14 @@ const app = {
     if (thisApp.dom.messageContentInput.value.trim().length === 0){
         alert('Messange is empty');
     } else {
-        thisApp.addMessange(thisApp.getUsernName(), thisApp.dom.messageContentInput.value);
+        thisApp.addMessage(thisApp.getUsernName(), thisApp.dom.messageContentInput.value);
+        thisApp.socket.emit('message', {author: thisApp.getUsernName(), content: thisApp.dom.messageContentInput.value });
         thisApp.dom.messageContentInput.value = '';
     }
 
   },
 
-  addMessange: function(author, content){
+  addMessage: function(author, content){
     const thisApp = this;
 
     const messange = document.createElement('li');
@@ -91,11 +92,15 @@ const app = {
         this.sendMessange();
     });
 
+    thisApp.socket.on('message', ({ author, content }) => thisApp.addMessage(author, content));
+
+
   },
 
   init: function() {
     const thisApp = this;
     console.log('Chat app');
+    thisApp.socket = io();
 
     thisApp.getElements();
     thisApp.initActions();
